@@ -1,6 +1,6 @@
 # Prediction of High Fire Risk Areas in Montréal
 
-This repository contains the work for the **YCBS 299 Data Science Capstone Project** conducted by Team #6. The project focuses on using machine learning to predict high fire-risk areas in Montréal, enabling the fire department to optimize resource allocation, enhance response precision, and improve cost efficiency.
+This repository contains the work for the **YCBS 299 Data Science Capstone Project**. The project focuses on using machine learning to predict high fire-risk areas in Montréal, enabling the fire department to optimize resource allocation, enhance response precision, and improve cost efficiency.
 
 ## Project Overview
 
