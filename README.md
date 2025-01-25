@@ -58,9 +58,9 @@ The threshold of 2 fires or more was deemed most appropriate for actionable insi
 The modeling approach focused on effectively **predicting high-risk fire areas** through **binary classification**, addressing data challanges and optimizing model perfromance. 
 
 #### Modeling Workflow:
-- Establish a benchmark model
-- Choose a basseline model
-- Improve and refine the model perfromance
+- **Establish Baseline Models**: Start with simple models to set performance benchmarks
+- **Develop and Evaluate Advanced Models**: Build and test more sophisticated models to identify the most promising approach.  
+- **Optimize Model Performance**: Enhance the selected model through iterative improvements
 
 #### Model Evaluation:
 Accurately identifying both high-risk and low-risk areas is critical for the fire department to proactively allocate resources and conduct inspections. Misclassifications can have significant consequences:
