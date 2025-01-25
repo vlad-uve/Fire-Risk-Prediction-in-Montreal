@@ -46,15 +46,43 @@ The analysis leveraged diverse datasets spanning January 2005 to January 2024, i
 ## Feature Engineering
 
 
+- Definition of Target Class: High-risk areas were defined as grid cells with 2 or more fire incidents per month, averaging 76 high-risk areas monthly across the city. This equates to approximately one high-risk grid per fire station (68 stations) per month.
 
-## Modelling Approach
+~~Lowering the threshold to 1 or more fires would result in ~140 high-risk areas per month, while raising it to 3 or more fires would reduce it to ~30 areas.
+The threshold of 2 fires or more was deemed most appropriate for actionable insights.~~
 
+
+## Model Creation
+
+### Modelling Approach Summary
+The modeling approach focused on effectively **predicting high-risk fire areas** through **binary classification**, addressing data challanges and optimizing model perfromance. 
+
+#### Modeling Workflow:
+- Establish a benchmark model
+- Choose a basseline model
+- Improve and refine the model perfromance
+
+#### Model Evaluation:
+Accurately identifying both high-risk and low-risk areas is critical for the fire department to proactively allocate resources and conduct inspections. Misclassifications can have significant consequences:
+
+- False Negatives (High-risk areas misclassified as low-risk): Increase the risk of delayed responses to critical incidents, potentially resulting in greater damage, safety hazards, and higher costs.
+
+- False Positives (Low-risk areas misclassified as high-risk): Lead to inefficient resource allocation and unnecessary inspections, resulting in wasted time and effort.
 
 ![image](https://github.com/user-attachments/assets/bac8123c-3f13-4c01-be08-bd0aa997c1c2)
 
+#### Metric:
+The **F1-score** was chosen as the primary evaluation metric to adress the challange of accurately classifing both classes . This metric balances precision (avoiding false positives) and recall (minimizing false negatives), making it particularly suitable for the highly imbalanced dataset where the high-risk class is significantly smaller but more critical to identify accurately.
+
+#### Modelling Data Sets: 
+The pre-processed and aggregated data was divided into training and test datasets, ensuring a continuous temporal split to account for the time-dependent nature of the data. Specifically, the training dataset included records from January 2011 to December 2022, while the test dataset comprised records from January to December 2023.
+
+![image](https://github.com/user-attachments/assets/6f824b9b-0f66-46de-9094-63ce3cf8379d)
 
 
-## Base Model Results
+
+
+### Base Model Results
 The evaluation of baseline models highlighted the performance gap between simple and advanced methods, as shown in the accompanying confusion matrices and performance metrics:
 
 - **Dummy Classifier**: Set the baseline with an F1-score of **0.47**, reflecting its limited predictive capability.  
@@ -67,7 +95,7 @@ The visualized metrics underscore XGBoost’s ability to outperform simpler mode
 ![image](https://github.com/user-attachments/assets/a90c8cdd-a91a-472a-aa16-19b5117b4498)
 
 
-## Improvement of XGBoost
+### Improvement of XGBoost
 
 The main issue affecting the model's predictive accuracy was the class imbalance. The dataset contained significantly more low-risk examples (~100,517) than high-risk examples (~13,878). To mitigate this imbalance, techniques such as **SMOTE** and **Oversampling** were applied to increase the representation of the high-risk class.
 
