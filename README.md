@@ -101,41 +101,28 @@ The main issue affecting the model's predictive accuracy was the class imbalance
 - **SMOTE** improved high-risk recall to **51%**, while **Oversampling** further enhanced it to **81%**.
 ![image](https://github.com/user-attachments/assets/0dc0dd53-0826-4ad7-a52b-06bbf1d23d0d) 
 
-- Class balancing techniques do not see almost any influence on weighted metrics
+- Class balancing techniques do not see almost any influence on weighted metrics.
 ![image](https://github.com/user-attachments/assets/2f4b8ae4-ef6f-4da9-97ca-aaa567bab858) 
 
-- Precision 
+- **Oversampling** demonstrated highest low-risk precision.
 ![image](https://github.com/user-attachments/assets/2e3d14fe-5b8a-4f4f-883f-2585fbd94d40)
 
-- **Impact of Balancing**:  
-  - **SMOTE** improved high-risk recall to **51%**, while Oversampling further enhanced it to **81%**.  
-
-
-we preferred modeling techniques based on oversampling methods as this method returns highest recall on the target class. 
-
-The improved XGBoost model demonstrated a marked increase in its ability to correctly predict high-risk areas, making it more suitable for practical implementation in fire-risk management.
+Thus we preferred modeling techniques based on oversampling methods as this method returns highest recall on the target class. 
 
 ## Modelling Results
 
-The images below highlight the efficacy of the **XGBoost model** in predicting high fire-risk areas across Montréal for January 2024. ~~Compare both saying that hgh risk zonez are successfully aught even thouagh a mistake type 1 presents~~
+### The Final Model
+By systematically fine-tuning the **XGBoost model** through iterative adjustments and rigorous testing, we significantly enhanced its predictive accuracy and performance metrics, and we finally developed a robust and reliable predictive model tailored to the specific requirements of the project. The best performance results on the test dataset for 2023 are summarized in the confusion matrix below. The model achieved:  
+- **81% accuracy in predicting High-Risk regions**
+- **73% accuracy in predicting Low-Risk regions**
+![image](https://github.com/user-attachments/assets/c13985db-8380-45ed-803c-e8cdba3c4264)
+
+### Example of Usage
+The visual distribution of actual fire risk (left image) versus predicted fire risk (right image) for January 2024 is also displayed. These results highlight the effectiveness of the XGBoost model in identifying high-risk areas, aiding in resource optimization and improving fire-risk management strategies across Montréal.
 ![image](https://github.com/user-attachments/assets/b45d9a77-2223-4e98-a5fd-53808f8b3e29)
 ![image](https://github.com/user-attachments/assets/22eef90b-f2d0-418f-af90-f5b26cff49c0)
 
-Model testing on the test set (~~2024?~~)
-![image](https://github.com/user-attachments/assets/c13985db-8380-45ed-803c-e8cdba3c4264)
-
-
-
-Key metrics include:
-- **High-Risk Prediction Accuracy**: The model correctly predicted 72 out of 98 high-risk grid areas for January 2024, achieving a recall rate of 81%.  
-- **Low-Risk Prediction Accuracy**: Correctly identified 73% of low-risk areas, providing actionable insights for targeted inspections.  
-- **Cost Impact**: Predictions could save the Montréal Fire Department approximately **$1.8 million per month**, based on average insurance coverage of $25,000 per fire incident.  
-- **Proactive Inspections**: Identifying 583 low-risk events offers an opportunity to focus preventive efforts, reducing overall fire incidents.  
-
-These findings emphasize the model’s ability to enhance **operational efficiency**, **cost savings**, and **public safety** through data-driven insights.
-
 ## Business Impact and Recommendations
-
 Using January 2024 as an example, the fire-risk prediction model demonstrates significant potential for enhancing fire prevention strategies in Montréal, enabling impactful operational and cost-saving benefits:  
 
 - **High-Risk Prediction Accuracy**: The model predicted **98 high-risk events** for January 2024, of which **72 were correctly identified**, showcasing its ability to highlight critical areas for intervention.  
