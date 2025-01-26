@@ -63,7 +63,7 @@ The modeling approach focused on effectively **predicting high-risk fire areas**
 - **Optimize Model Performance**: Enhance the selected model through iterative improvements
 
 #### Model Evaluation:
-Accurately identifying both high-risk and low-risk areas is critical for the fire department to proactively allocate resources and conduct inspections. Misclassifications can have significant consequences:
+Accurately identifying both high-risk and low-risk areas is important for the fire department to proactively allocate resources and conduct inspections. Misclassifications can have significant consequences:
 
 - False Negatives (High-risk areas misclassified as low-risk): Increase the risk of delayed responses to critical incidents, potentially resulting in greater damage, safety hazards, and higher costs.
 
@@ -72,15 +72,16 @@ Accurately identifying both high-risk and low-risk areas is critical for the fir
 ![image](https://github.com/user-attachments/assets/bac8123c-3f13-4c01-be08-bd0aa997c1c2)
 
 #### Metric:
-The **F1-score** was chosen as the primary evaluation metric to adress the challange of accurately classifing both classes . This metric balances precision (avoiding false positives) and recall (minimizing false negatives), making it particularly suitable for the highly imbalanced dataset where the high-risk class is significantly smaller but more critical to identify accurately.
+The **F1-score** was chosen as the general evaluation metric to evaluate and to compare classification capabilities of different models, adressing the challange of accurately classifing both classes. This metric balances precision (avoiding false positives) and recall (minimizing false negatives), making it particularly suitable for the highly imbalanced dataset.
+
+The **high-risk class recall** was prioritized as the **key evaluation metric** during the model improvement stage, given the high-risk class is significantly smaller but more critical to identify accurately. A higher recall indicates fewer false negatives, meaning the model successfully identifies most areas with a potentially high risk of fire. This ensures that critical high-risk zones are accurately flagged for proactive intervention, minimizing the likelihood of missed incidents.
+
+Additionally, a high **low-risk class precision** ensures that a smaller number of high-risk areas are misclassified as low-risk. This aligns closely with the key evaluation metric.
 
 #### Modelling Data Sets: 
 The pre-processed and aggregated data was divided into training and test datasets, ensuring a continuous temporal split to account for the time-dependent nature of the data. Specifically, the training dataset included records from January 2011 to December 2022, while the test dataset comprised records from January to December 2023.
 
 ![image](https://github.com/user-attachments/assets/6f824b9b-0f66-46de-9094-63ce3cf8379d)
-
-
-
 
 ### Base Model Results
 The evaluation of baseline models highlighted the performance gap between simple and advanced methods, as shown in the accompanying confusion matrices and performance metrics:
@@ -94,23 +95,23 @@ The visualized metrics underscore XGBoost’s ability to outperform simpler mode
 
 ![image](https://github.com/user-attachments/assets/a90c8cdd-a91a-472a-aa16-19b5117b4498)
 
-
 ### Improvement of XGBoost
-
 The main issue affecting the model's predictive accuracy was the class imbalance. The dataset contained significantly more low-risk examples (~100,517) than high-risk examples (~13,878). To mitigate this imbalance, techniques such as **SMOTE** and **Oversampling** were applied to increase the representation of the high-risk class.
 
-- **SMOTE** improved high-risk recall to **51%**, while **Oversampling** further enhanced it to **81%**.  
+- **SMOTE** improved high-risk recall to **51%**, while **Oversampling** further enhanced it to **81%**.
 ![image](https://github.com/user-attachments/assets/0dc0dd53-0826-4ad7-a52b-06bbf1d23d0d) 
 
-- These methods also contributed to better overall weighted F1-scores for the model, balancing precision and recall effectively.
+- Class balancing techniques do not see almost any influence on weighted metrics
 ![image](https://github.com/user-attachments/assets/2f4b8ae4-ef6f-4da9-97ca-aaa567bab858) 
 
--
+- Precision 
 ![image](https://github.com/user-attachments/assets/2e3d14fe-5b8a-4f4f-883f-2585fbd94d40)
 
 - **Impact of Balancing**:  
   - **SMOTE** improved high-risk recall to **51%**, while Oversampling further enhanced it to **81%**.  
 
+
+we preferred modeling techniques based on oversampling methods as this method returns highest recall on the target class. 
 
 The improved XGBoost model demonstrated a marked increase in its ability to correctly predict high-risk areas, making it more suitable for practical implementation in fire-risk management.
 
