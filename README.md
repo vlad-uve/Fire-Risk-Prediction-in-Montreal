@@ -1,9 +1,7 @@
 # Prediction of High Fire Risk Areas in Montréal
-
-This repository contains the work for the **YCBS 299 - Data Science Capstone Project** course at McGill University conducted in 2024 by Team #6: Felix MARTINEZ MEJIAS, Sienko IKHABI, Vladislav YUSHKEVICH, Vadim STRELNIKOV. ~~The project focuses on using machine learning to predict high fire-risk areas in Montréal, enabling the fire department to optimize resource allocation, enhance response precision, and improve cost efficiency.~~
+This repository contains the work for the **YCBS 299 - Data Science Capstone Project** course at McGill University conducted in 2024 by Team #6: Felix MARTINEZ MEJIAS, Sienko IKHABI, Vladislav YUSHKEVICH, Vadim STRELNIKOV.
 
 ## Project Overview
-
 The Montreal Fire Department faces rising fire incidents despite limited staffing and resources. This project aims to **predict monthly high fire-risk areas** using advanced analytics and machine learning, enabling improved resource allocation and preemptive strategies that enhance public safety and reduce operational costs.
 
 Key objectives:
@@ -14,43 +12,79 @@ Key objectives:
 
 The data science project directly addresses the critical needs of the Montreal Fire Department, aligning with goals of efficiency, effectiveness, and fiscal responsibility. By enhancing the accuracy of fire incident predictions, the model optimizes resource deployment and bolsters the city's firefighting capabilities, ultimately contributing to the safety and well-being of its residents.
   
-## Data Overview and Exploration
-
+## Data Sources
 The analysis leveraged diverse datasets spanning January 2005 to January 2024, including:
 - **Fire Incidents** (Open Data - City of Montreal)  
    - Records of fire-related calls, incident types, timestamps, and event locations.
-   - ~~Avaialble online: https://donnees.montreal.ca/dataset/interventions-service-securite-incendie-montreal~~
+   - Avaialble online: https://donnees.montreal.ca/dataset/interventions-service-securite-incendie-montreal
 - **Fire Station Locations** (Open Data - City of Montreal)  
    - Addresses and coverage details of fire stations.
-   - ~~Available online: https://donnees.montreal.ca/dataset/casernes-pompiers~~
+   - Available online: https://donnees.montreal.ca/dataset/casernes-pompiers
 - **Property Assessments** (Open Data - City of Montreal)  
    - Building attributes (floors, year of construction, surface area).
-   - ~~Avaialble online: https://donnees.montreal.ca/dataset/unites-evaluation-fonciere~~ 
+   - Avaialble online: https://donnees.montreal.ca/dataset/unites-evaluation-fonciere 
 - **Crime Statistics** (Open Data - City of Montreal)  
    - Anonymized crime reports with timestamps, locations, and categories.
-   - ~~Avaialble online: https://donnees.montreal.ca/dataset/actes-criminels~~
+   - Avaialble online: https://donnees.montreal.ca/dataset/actes-criminels
 - **Census Data** (Open Data - Statistics Canada, 2021)  
    - Demographic and socioeconomic variables (population density, income, dwelling types, etc.).
-   - ~~Available online: https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger.cfm?Lang=E~~
+   - Available online: https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/download-telecharger.cfm?Lang=E
 
-~~Datasets were preprocessed, aggregated, and aligned using an artificial 1km x 1km grid over Montréal Island, with unique identifiers for each grid cell.~~
+## Data Exploration and Refinment
 
-## Data Aggregation
+### Process Overview
+The data exploration and refinement process was guided by a structured approach ensuring that the datasets were comprehensive, consistent, and ready to be used for the development of the predictive model. This phase involved 5 pivotal steps, as illustrated by the data refinement funnel below.
 
-- Montréal was divided into 685 grid cells (each 1 km²)
+![image](https://github.com/user-attachments/assets/6cc09e95-7649-4de7-a95d-b05b64e52631)
 
-- Monthly aggregation of features for each grid cell included fire incidents, crime counts, building attributes, and census metrics.
-  
-- Fire Risk Definition: A grid cell was classified as high-risk if it had 2 or more fire incidents in a given month.
+1. **Attribute Analysis**: The attributes of each dataset were thoroughly examined to identify relevant insights and determine the necessary actions for meaningful feature extraction.
+
+2. **Removal of Irrelevant Entries**: Redundant and unnecessary data entries were filtered to maintain focus and reduce noise, ensuring a targeted and effective analysis.
+
+3. **Correction of Structural Errors**: Structural inconsistencies and errors were identified and rectified to prevent skewed results, ensuring that the datasets were properly aligned and formatted.
+
+4. **Outlier Filtering and Missing Data Handling**: Outlier values were removed to maintain consistency across datasets, while missing data was addressed through appropriate methods, enhancing the comprehensiveness and reliability of the analysis.
+
+5. **Data Verification and Preparation**: The refined datasets were verified for completeness, consistency, and alignment with project objectives, ensuring readiness for integration into the modeling pipeline.
+
+### Insights and Trends Identified
+
+#### Fire Incidents:  
+  - Non-residential fires ("AUTREFEU") occurred predominantly on weekends and peaked during summer months, with a decline in recent years.  
+  - Residential fires ("INCENDIE") showed a consistent pattern, slightly increasing in recent years and also peaking on weekends.  
+
+#### Property Assessments:  
+  - Borough assessments varied significantly, averaging **14,752 assessments per borough**, ranging from 74 to 42,241.  
+  - Key features identified for modeling include **maximum number of floors**, **year of construction**, **land area**, and **building area**, with proactive outlier removal ensuring data integrity.  
+
+#### Crime Data:  
+  - Certain crime types were excluded (e.g., "Theft of a motor vehicle"), as they showed no inherent correlation with fire incidents.  
+  - Retained categories like "Break into property" and "Mischief" showed potential correlations with fire incidents.  
+
+#### Census Data:  
+  - Variables such as population density, family size, income levels, and dwelling values were identified as potentially influencing fire risks.  
+  - For instance, high-density areas may increase electrical line overloads, while income levels and dwelling value may indicate preventive measures or maintenance efforts.
 
 ## Feature Engineering
 
+### Data Aggregation
+To standardize and align the datasets, Montréal was divided into 685 grid cells, each measuring 1 km², with unique identifiers assigned to each grid cell. This approach facilitated consistent spatial analysis and integration across datasets.
 
-- Definition of Target Class: High-risk areas were defined as grid cells with 2 or more fire incidents per month, averaging 76 high-risk areas monthly across the city. This equates to approximately one high-risk grid per fire station (68 stations) per month.
+![image](https://github.com/user-attachments/assets/8a79dfb4-57ef-42b2-ac96-3b59a2932551)
 
-~~Lowering the threshold to 1 or more fires would result in ~140 high-risk areas per month, while raising it to 3 or more fires would reduce it to ~30 areas.
-The threshold of 2 fires or more was deemed most appropriate for actionable insights.~~
+Temporal and constant data features for each grid cell was aggregated, including:
+- **Fire Incidents**: Total incidents per grid cell.
+- **Crime Counts**: Aggregated by type and frequency.
+- **Building Attributes**: Average building characteristics, such as construction year and number of floors.
+- **Census Metrics**: Population density, income levels, and dwelling types.
 
+This aggregation process provided a unified structure for all datasets, ensuring a comprehensive view of spatial and temporal trends essential for fire-risk prediction.
+
+### Target Class
+High-risk areas were defined as grid cells with 2 or more fire incidents per month, averaging 76 high-risk areas monthly across the city. This equates to approximately one high-risk grid per fire station (68 stations) per month.
+- Lowering the threshold to 1 or more fires would result in ~140 high-risk areas per month
+- Raising it to 3 or more fires would reduce it to ~30 areas.
+- The threshold of 2 fires or more was deemed most appropriate for actionable insights.
 
 ## Model Creation
 
@@ -133,25 +167,13 @@ Using January 2024 as an example, the fire-risk prediction model demonstrates si
 
 These results underscore the model’s ability to improve public safety while offering actionable recommendations to guide future fire prevention initiatives in Montréal.
 
-## ~~Conclusion~~
+## Conclusion
 
-Our predictive model classified grid areas into high-risk and low-risk categories. Key highlights:
-- **Base Model**: XGBoost outperformed other algorithms with a weighted F1 score of 78.0%.
-- **Class Imbalance**: Techniques like SMOTE and Oversampling significantly improved recall for high-risk areas.
-- **Key Insights**:
-  - Correctly predicted 81% of high-risk areas in the test set.
-  - Potential cost savings of approximately $1.8M/month through proactive measures.
+This project demonstrates how data-driven approaches can improve fire prevention and resource allocation in Montréal. By integrating datasets such as fire incidents, crime statistics, property assessments, and census data into a structured 1 km² grid system, a predictive model was developed to identify high fire-risk areas. The model achieved 81% accuracy in predicting high-risk zones and 73% for low-risk areas, supporting proactive interventions and operational efficiency. These insights have the potential to save approximately $1.8 million per month through targeted inspections and preventive measures.
 
-## ~~Recommendations~~
+Advanced modeling techniques, like XGBoost, and class balancing strategies enhanced prediction reliability. Future improvements could include incorporating dynamic data sources, such as fire inspection records and updated census data, to further optimize accuracy.
 
-The project underscores the need for continued exploration, including:
-- Incorporating time-aligned demographic data for improved model accuracy.
-- Leveraging additional internal datasets from the fire department for enriched features.
-- Enhancing collaboration between data scientists and fire management experts.
-
-## ~~Conclusion~~
-
-This project demonstrates how data-driven insights can strengthen Montréal's firefighting capabilities, safeguard communities, and reduce the financial burden of fire incidents.
+This project provides a scalable framework for data-driven fire prevention, enabling better resource management and public safety while showcasing the transformative potential of predictive analytics in urban planning.
 
 
 ## ~~Project Organization~~
