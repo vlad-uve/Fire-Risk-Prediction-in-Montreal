@@ -1,0 +1,30 @@
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Data and model files
+data/
+models/
+*.pth
+*.pkl
+*.csv
+*.xlsx
+*.yxmd
+
+# Draft notebooks and Alteryx
+drafts/
+
+# Environments and secrets
+venv/
+.env
+
+# VS Code configs
+.vscode/
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
