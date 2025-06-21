@@ -1,0 +1,7 @@
+-r fire-risk-app/requirements-app.txt
+
+
+# development tools
+jupyter
+ipykernel
+notebook

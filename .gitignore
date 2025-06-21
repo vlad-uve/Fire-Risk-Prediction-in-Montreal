@@ -33,3 +33,6 @@ venv/
 # OS-specific junk
 .DS_Store
 Thumbs.db
+
+# Other junk
+code.
