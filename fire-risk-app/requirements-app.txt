@@ -1,2 +1,7 @@
 folium
 flask
+pandas
+geopandas
+scikit-learn
+xgboost
+google-cloud-storage
