@@ -1,38 +1,37 @@
-# Jupyter notebooks
+# Notebooks cache
 .ipynb_checkpoints/
 
 # Python files
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+
+# Environments and secrets
+.env
+venv/
+fire-risk-venv/
 
 # Data and model files
 data/*
 !data/.gitkeep
 
-models/*
-!models/
+# Logs
+*.log
+
+# VSCode and IDE files
+.vscode/
+.idea/
+
+# Sensitive files
+gcs_service_key.json
+
+# Local runtime files
+data/
+static/maps/
 
 # Common data formats
 *.pth
 *.pkl
 *.csv
 *.xlsx
-*.yxmd
-
-# Draft notebooks and Alteryx
-drafts/
-
-# Environments and secrets
-venv/
-.env
-
-# VS Code configs
-.vscode/
-
-# OS-specific junk
-.DS_Store
-Thumbs.db
-
-# Other junk
-code.
