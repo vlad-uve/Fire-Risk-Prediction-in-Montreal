@@ -68,4 +68,5 @@ def show_maps():
         return f"<h2>Error: {str(e)}</h2>", 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    debug_mode = os.environ.get("FLASK_ENV") == "development"
+    app.run(debug=debug_mode)
