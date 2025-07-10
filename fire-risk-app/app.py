@@ -8,7 +8,7 @@ import pandas as pd
 import geopandas as gpd
 import pickle
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # Constants
 BUCKET_NAME = "fire-risk-gcs-bucket"
