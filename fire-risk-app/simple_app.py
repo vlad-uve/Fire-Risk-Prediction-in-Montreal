@@ -32,6 +32,7 @@ def ensure_data_loaded():
 @app.route('/', methods=['GET', 'POST'])
 def show_maps():
     try:
+        ensure_data_loaded()
         selected_month = request.form['month'] if request.method == 'POST' else DEFAULT_MONTH
         readable_month = datetime.strptime(selected_month, "%Y-%m").strftime("%B %Y")
 
@@ -41,13 +42,12 @@ def show_maps():
         else:
             # Dynamically generate for non-default month
             X_month, y_true = get_data_for_month(df_fires_history_risk, selected_month)
-            if X_month is None or len(X_month) == 0:
-                return f"<h2>No data available for {selected_month}.</h2>", 404
-
             grid_true = fire_risk_to_grid(y_true, gpd_grid)
+
             os.makedirs(TMP_MAP_DIR, exist_ok=True)
             dynamic_map_path = os.path.join(TMP_MAP_DIR, 'map_month_true.html')
             plot_risk_to_map(create_map(), grid_true).save(dynamic_map_path)
+
             true_map_url = url_for('serve_dynamic_true_map')
 
         return render_template(
