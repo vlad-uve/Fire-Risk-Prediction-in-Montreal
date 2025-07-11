@@ -17,15 +17,17 @@ TMP_MAP_DIR = "/tmp/maps"
 
 df_fires_history_risk = None
 gpd_grid = None
+data_loaded = False
 
 # --- Routes ---
-@app.before_first_request
-def load_data():
-    global df_fires_history_risk, gpd_grid
-    print("Loading data in before_first_request...")
-    df_fires_history_risk = pd.read_csv(os.path.join(LOCAL_DATA_DIR, "df_fires_history_risk.csv"))
-    gpd_grid = gpd.read_file(os.path.join(LOCAL_DATA_DIR, "montreal_grid_v1.geojson"))
-    print("Data loaded.")
+def ensure_data_loaded():
+    global data_loaded, df_fires_history_risk, gpd_grid
+    if not data_loaded:
+        print("Loading data on first request...")
+        df_fires_history_risk = pd.read_csv(os.path.join(LOCAL_DATA_DIR, "df_fires_history_risk.csv"))
+        gpd_grid = gpd.read_file(os.path.join(LOCAL_DATA_DIR, "montreal_grid_v1.geojson"))
+        data_loaded = True
+        print("Data loaded.")
 
 @app.route('/', methods=['GET', 'POST'])
 def show_maps():
