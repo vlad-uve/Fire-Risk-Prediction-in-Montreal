@@ -35,22 +35,15 @@ def show_maps():
         selected_month = request.form['month'] if request.method == 'POST' else DEFAULT_MONTH
         readable_month = datetime.strptime(selected_month, "%Y-%m").strftime("%B %Y")
 
-        # Ensure we have initialized the dataframe if possible
-        ensure_data_loaded()
-
-        # If df_fires_history_risk is None or empty ⇒ waiting state
-        if df_fires_history_risk is None or df_fires_history_risk.empty:
-            return render_template("waiting_for_data.html"), 200
-
-        # Try to get month data
-        X_month, y_true = get_data_for_month(df_fires_history_risk, selected_month)
-
-        if X_month is None or len(X_month) == 0:
-            # No data available for this month ⇒ show waiting page too
-            return render_template("waiting_for_data.html"), 200
-
+        if selected_month == DEFAULT_MONTH:
+            # Serve pre-generated static map for DEFAULT_MONTH
+            true_map_url = url_for('static', filename='maps/default_true_map.html')
         else:
-            # If data is present ⇒ normal behavior
+            # Dynamically generate for non-default month
+            X_month, y_true = get_data_for_month(df_fires_history_risk, selected_month)
+            if X_month is None or len(X_month) == 0:
+                return f"<h2>No data available for {selected_month}.</h2>", 404
+
             grid_true = fire_risk_to_grid(y_true, gpd_grid)
             os.makedirs(TMP_MAP_DIR, exist_ok=True)
             dynamic_map_path = os.path.join(TMP_MAP_DIR, 'map_month_true.html')
