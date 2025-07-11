@@ -31,9 +31,15 @@
         </div>
         <div class="map-box">
             <h2>🔥 True Fire Risk — {{ readable_month | upper }} 🔥</h2>
-            <iframe src="{{ true_map_url }}"></iframe>
+            {% if show_true_map %}
+                <iframe src="{{ true_map_url }}"></iframe>
+            {% else %}
+                <div class="waiting-box">
+                    <p>🚧 Waiting for data to generate the true map… Please refresh soon.</p>
+                </div>
+            {% endif %}
         </div>
-    </div>
+    </div>  
 
     <div class="extra-info">
         <h3 class="extra-heading">How it works?</h3>

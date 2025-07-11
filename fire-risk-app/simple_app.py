@@ -32,30 +32,36 @@ def ensure_data_loaded():
 @app.route('/', methods=['GET', 'POST'])
 def show_maps():
     try:
+        ensure_data_loaded()
+
         selected_month = request.form['month'] if request.method == 'POST' else DEFAULT_MONTH
         readable_month = datetime.strptime(selected_month, "%Y-%m").strftime("%B %Y")
 
-        if selected_month == DEFAULT_MONTH:
-            # Serve pre-generated static map for DEFAULT_MONTH
-            true_map_url = url_for('static', filename='maps/default_true_map.html')
-        else:
-            # Dynamically generate for non-default month
-            X_month, y_true = get_data_for_month(df_fires_history_risk, selected_month)
-            if X_month is None or len(X_month) == 0:
-                return f"<h2>No data available for {selected_month}.</h2>", 404
+        pred_map_url = "https://via.placeholder.com/800x600?text=Predicted+Map"
+        true_map_url = None
+        show_true_map = False
 
-            grid_true = fire_risk_to_grid(y_true, gpd_grid)
-            os.makedirs(TMP_MAP_DIR, exist_ok=True)
-            dynamic_map_path = os.path.join(TMP_MAP_DIR, 'map_month_true.html')
-            plot_risk_to_map(create_map(), grid_true).save(dynamic_map_path)
-            true_map_url = url_for('serve_dynamic_true_map')
+        if df_fires_history_risk is not None and not df_fires_history_risk.empty:
+            if selected_month == DEFAULT_MONTH:
+                true_map_url = url_for('static', filename='maps/default_true_map.html')
+                show_true_map = True
+            else:
+                X_month, y_true = get_data_for_month(df_fires_history_risk, selected_month)
+                grid_true = fire_risk_to_grid(y_true, gpd_grid)
+                os.makedirs(TMP_MAP_DIR, exist_ok=True)
+                dynamic_map_path = os.path.join(TMP_MAP_DIR, 'map_month_true.html')
+                plot_risk_to_map(create_map(), grid_true).save(dynamic_map_path)
+                true_map_url = url_for('serve_dynamic_true_map')
+                show_true_map = True
 
+        # Always render index.html but pass show_true_map flag
         return render_template(
-            "maps.html",
-            pred_map_url="https://via.placeholder.com/800x600?text=Predicted+Map",
+            "index.html",
+            pred_map_url=pred_map_url,
             true_map_url=true_map_url,
             month=selected_month,
-            readable_month=readable_month
+            readable_month=readable_month,
+            show_true_map=show_true_map  # Pass the new flag!
         )
 
     except Exception as e:
