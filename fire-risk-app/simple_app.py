@@ -56,7 +56,7 @@ def show_maps():
 
         # Always render index.html but pass show_true_map flag
         return render_template(
-            "index.html",
+            "maps.html",
             pred_map_url=pred_map_url,
             true_map_url=true_map_url,
             month=selected_month,
