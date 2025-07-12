@@ -3,3 +3,5 @@ gunicorn
 pandas
 geopandas
 folium
+scikit-learn
+xgboost
