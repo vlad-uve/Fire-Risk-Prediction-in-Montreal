@@ -1,8 +1,7 @@
-folium
 flask
+gunicorn
 pandas
 geopandas
+folium
 scikit-learn
 xgboost
-google-cloud-storage
-gunicorn
