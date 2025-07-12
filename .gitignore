@@ -13,8 +13,8 @@ venv/
 fire-risk-venv/
 
 # Data and model files
-data/*
-!data/.gitkeep
+#data/*
+#!data/.gitkeep
 
 # Logs
 *.log
@@ -27,11 +27,10 @@ data/*
 gcs_service_key.json
 
 # Local runtime files
-data/
-static/maps/
+#static/maps/
 
 # Common data formats
-*.pth
-*.pkl
-*.csv
-*.xlsx
+#*.pth
+#*.pkl
+#*.csv
+#*.xlsxS
