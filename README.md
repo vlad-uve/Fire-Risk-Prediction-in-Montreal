@@ -1,4 +1,6 @@
 # Prediction of High Fire Risk Areas in Montréal
+[![Deploy on Render](https://img.shields.io/badge/Live%20App%20on-Render-brightgreen)](https://fire-risk-prediction-in-montreal.onrender.com)
+
 This repository contains the work for the **YCBS 299 - Data Science Capstone Project** course at McGill University conducted in 2024 by Team #6: Felix MARTINEZ MEJIAS, Sienko IKHABI, Vladislav YUSHKEVICH, Vadim STRELNIKOV.
 
 ## Project Overview
@@ -11,6 +13,11 @@ Key objectives:
 - **Support Budget Planning**: Provide foresight into expenditures for fire incident management.
 
 The data science project directly addresses the critical needs of the Montreal Fire Department, aligning with goals of efficiency, effectiveness, and fiscal responsibility. By enhancing the accuracy of fire incident predictions, the model optimizes resource deployment and bolsters the city's firefighting capabilities, ultimately contributing to the safety and well-being of its residents.
+
+## Deployment
+A deployment guide is provided for reproducing the cloud-based deployment.
+See [Deployment Guide](fire-risk-app/README-deployment.md) for full instructions.
+The deployed application is available live on [Render](https://your-render-app-url).
   
 ## Data Sources
 The analysis leveraged diverse datasets spanning January 2005 to January 2024, including:
@@ -175,6 +182,8 @@ Advanced modeling techniques, like XGBoost, and class balancing strategies enhan
 
 This project provides a scalable framework for data-driven fire prevention, enabling better resource management and public safety while showcasing the transformative potential of predictive analytics in urban planning.
 
+## Presentation
+A summary presentation of this project is available [here](https://drive.google.com/file/d/1lRE_yKjAF7jHVoCD7S1-z5ezxtrtlUYC/view?usp=sharing).
 
 ## ~~Project Organization~~
 ```
