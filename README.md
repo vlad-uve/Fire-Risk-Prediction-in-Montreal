@@ -1,4 +1,4 @@
-# Prediction of High Fire Risk Areas in Montréal
+# Prediction of High Fire Risk Areas in Montreal
 [![Deploy on Render](https://img.shields.io/badge/Live%20App%20on-Render-brightgreen)](https://fire-risk-prediction-in-montreal.onrender.com)
 
 This repository contains the work for the **YCBS 299 - Data Science Capstone Project** course at McGill University conducted in 2024 by Team #6: Felix MARTINEZ MEJIAS, Sienko IKHABI, Vladislav YUSHKEVICH, Vadim STRELNIKOV.
@@ -42,7 +42,7 @@ The analysis leveraged diverse datasets spanning January 2005 to January 2024, i
 ### Process Overview
 The data exploration and refinement process was guided by a structured approach ensuring that the datasets were comprehensive, consistent, and ready to be used for the development of the predictive model. This phase involved 5 pivotal steps, as illustrated by the data refinement funnel below.
 
-![image](https://github.com/user-attachments/assets/6cc09e95-7649-4de7-a95d-b05b64e52631)
+![Confusion Matrix](files/images/data_workflow_chart.png)
 
 1. **Attribute Analysis**: The attributes of each dataset were thoroughly examined to identify relevant insights and determine the necessary actions for meaningful feature extraction.
 
@@ -77,7 +77,7 @@ The data exploration and refinement process was guided by a structured approach 
 ### Data Aggregation
 To standardize and align the datasets, Montréal was divided into 685 grid cells, each measuring 1 km², with unique identifiers assigned to each grid cell. This approach facilitated consistent spatial analysis and integration across datasets.
 
-![image](https://github.com/user-attachments/assets/8a79dfb4-57ef-42b2-ac96-3b59a2932551)
+![image](files/images/montreal_grid_map.png)
 
 Temporal and constant data features for each grid cell was aggregated, including:
 - **Fire Incidents**: Total incidents per grid cell.
@@ -110,7 +110,7 @@ Accurately identifying both high-risk and low-risk areas is important for the fi
 
 - False Positives (Low-risk areas misclassified as high-risk): Lead to inefficient resource allocation and unnecessary inspections, resulting in wasted time and effort.
 
-![image](https://github.com/user-attachments/assets/bac8123c-3f13-4c01-be08-bd0aa997c1c2)
+![image](files/images/confusion_matrix_explanation.png)
 
 #### Metric:
 The **F1-score** was chosen as the general evaluation metric to evaluate and to compare classification capabilities of different models, adressing the challange of accurately classifing both classes. This metric balances precision (avoiding false positives) and recall (minimizing false negatives), making it particularly suitable for the highly imbalanced dataset.
@@ -122,7 +122,7 @@ Additionally, a high **low-risk class precision** ensures that a smaller number 
 #### Modelling Data Sets: 
 The pre-processed and aggregated data was divided into training and test datasets, ensuring a continuous temporal split to account for the time-dependent nature of the data. Specifically, the training dataset included records from January 2011 to December 2022, while the test dataset comprised records from January to December 2023.
 
-![image](https://github.com/user-attachments/assets/6f824b9b-0f66-46de-9094-63ce3cf8379d)
+![image](files/images/dataset_split.png)
 
 ### Base Model Results
 The evaluation of baseline models highlighted the performance gap between simple and advanced methods, as shown in the accompanying confusion matrices and performance metrics:
@@ -134,19 +134,19 @@ The evaluation of baseline models highlighted the performance gap between simple
 
 The visualized metrics underscore XGBoost’s ability to outperform simpler models, justifying its selection for further optimization in handling the fire-risk prediction challenge.
 
-![image](https://github.com/user-attachments/assets/a90c8cdd-a91a-472a-aa16-19b5117b4498)
+![image](files/images/comparison_of_models.png)
 
 ### Improvement of XGBoost
 The main issue affecting the model's predictive accuracy was the class imbalance. The dataset contained significantly more low-risk examples (~100,517) than high-risk examples (~13,878). To mitigate this imbalance, techniques such as **SMOTE** and **Oversampling** were applied to increase the representation of the high-risk class.
 
 - **SMOTE** improved high-risk recall to **51%**, while **Oversampling** further enhanced it to **81%**.
-![image](https://github.com/user-attachments/assets/0dc0dd53-0826-4ad7-a52b-06bbf1d23d0d) 
+![image](files/images/high_class_metrics_chart.png) 
 
 - Class balancing techniques do not see almost any influence on weighted metrics.
-![image](https://github.com/user-attachments/assets/2f4b8ae4-ef6f-4da9-97ca-aaa567bab858) 
+![image](files/images/low_class_metrics_chart.png) 
 
 - **Oversampling** demonstrated highest low-risk precision.
-![image](https://github.com/user-attachments/assets/2e3d14fe-5b8a-4f4f-883f-2585fbd94d40)
+![image](files/images/weighted_metrics_chart.png)
 
 Thus we preferred modeling techniques based on oversampling methods as this method returns highest recall on the target class. 
 
@@ -156,12 +156,19 @@ Thus we preferred modeling techniques based on oversampling methods as this meth
 By systematically fine-tuning the **XGBoost model** through iterative adjustments and rigorous testing, we significantly enhanced its predictive accuracy and performance metrics, and we finally developed a robust and reliable predictive model tailored to the specific requirements of the project. The best performance results on the test dataset for 2023 are summarized in the confusion matrix below. The model achieved:  
 - **81% accuracy in predicting High-Risk regions**
 - **73% accuracy in predicting Low-Risk regions**
-![image](https://github.com/user-attachments/assets/c13985db-8380-45ed-803c-e8cdba3c4264)
+![image](files/images/confusion_matrix_results.png)
 
 ### Example of Usage
 The visual distribution of actual fire risk (left image) versus predicted fire risk (right image) for January 2024 is also displayed. These results highlight the effectiveness of the XGBoost model in identifying high-risk areas, aiding in resource optimization and improving fire-risk management strategies across Montréal.
-![image](https://github.com/user-attachments/assets/b45d9a77-2223-4e98-a5fd-53808f8b3e29)
-![image](https://github.com/user-attachments/assets/22eef90b-f2d0-418f-af90-f5b26cff49c0)
+
+<p align="center">
+  <img src="files/images/distribution_true_2024_01.png" alt="Actual Fire Risk" width="400"/>
+  <img src="files/images/distribution_true_2024_01.png" alt="Predicted Fire Risk" width="400"/>
+</p>
+
+<p align="center">
+  <b>Actual Fire Risk (left)</b> &nbsp;&nbsp;&nbsp; <b>Predicted Fire Risk (right)</b>
+</p>
 
 ## Business Impact and Recommendations
 Using January 2024 as an example, the fire-risk prediction model demonstrates significant potential for enhancing fire prevention strategies in Montréal, enabling impactful operational and cost-saving benefits:  
