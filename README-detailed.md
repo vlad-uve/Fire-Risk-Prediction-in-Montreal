@@ -11,10 +11,9 @@
 - Business impact analysis and recommendations for deployment
 
 ### 🔗 Quick Links:
-
 [🚀 Live App](https://fire-risk-prediction-in-montreal.onrender.com) |
-[📖 Project Details](README-detailed.md) |
-[⚙️ Deployment Guide](fire-risk-app/README-deployment.md) |
+[📖 README](fire-risk-app/README.md) |
+[⚙️ Project Details](README-detailed.md) |
 [🎞️ Presentation Slides](https://drive.google.com/file/d/1lRE_yKjAF7jHVoCD7S1-z5ezxtrtlUYC/view?usp=sharing)
 
 
