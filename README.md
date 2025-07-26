@@ -46,7 +46,7 @@
 - 🏆 **XGBoost model:** 81% recall on the critical high-risk class  
 - 🗺️ **Interactive web app:** Live map lets users map predictions, scroll through monthly trends, and compare against historical fires (👉[Try the App](https://fire-risk-prediction-in-montreal.onrender.com))
 
-👉 **See the [Project Details](fire-risk-app/README-detailed.md) for a deep dive into the solution and methodology**
+👉 **See the [Project Details](README-detailed.md) for a deep dive into the solution and methodology**
 
 
 
@@ -106,7 +106,7 @@
 - 📦 **Google Cloud Storage:** Application data and model storage for scalable serving  
 - 🔧 **GitHub Repository:** Source code hosted and integrated with Render for automated deployment
 
-👉 **See the [Deployment Guide](fire-risk-app/README-deployment.md) for details on how to reproduce this deployment** 
+👉 **See the [Deployment Guide](README-deployment.md) for details on how to reproduce this deployment** 
 
 
 
