@@ -1,31 +1,40 @@
 # Imports
 from google.cloud import storage
-from io import BytesIO
 import os
+import time
 
 def download_data_from_gcs(bucket_name, gcs_files, local_dir='data'):
     """
-    Download multiple files from GCS into a local directory.
+    Downloads multiple files from a GCS bucket to local paths.
 
     Args:
-        bucket_name (str): GCS bucket name.
-        gcs_files (dict): Mapping of local filenames to GCS paths.
-            e.g., {
-                'df_fires_history_risk.csv': 'data/df_fires_history_risk.csv',
-                'montreal_grid_v1.geojson': 'data/montreal_grid_v1.geojson',
-                'xgb_model_v1.pkl': 'model/xgb_model_v1.pkl'
-            }
-        local_dir (str): Local folder to store the files.
+        bucket_name (str): Name of the GCS bucket.
+        gcs_files (dict): Mapping of local file names to GCS object paths.
+        local_dir (str): Root directory to store downloaded files.
     """
-    os.makedirs(local_dir, exist_ok=True)
-    client = storage.Client(project="fire-risk-gcs")
+    if not os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        raise EnvironmentError("❌ GOOGLE_APPLICATION_CREDENTIALS is not set.")
+
+    client = storage.Client()
     bucket = client.bucket(bucket_name)
 
     for local_name, gcs_path in gcs_files.items():
         local_path = os.path.join(local_dir, local_name)
+
         if not os.path.exists(local_path):
-            print(f"Downloading {gcs_path} to {local_path}...")
+            print(f"⬇️  Downloading {gcs_path} → {local_path}")
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
             blob = bucket.blob(gcs_path)
-            blob.download_to_filename(local_path)
+
+            for attempt in range(3):
+                try:
+                    blob.download_to_filename(local_path)
+                    break
+                except Exception as e:
+                    if attempt < 2:
+                        print(f"🔁 Retrying ({attempt+1}/3): {gcs_path}")
+                        time.sleep(1)
+                    else:
+                        print(f"❌ Failed to download {gcs_path}: {e}")
         else:
-            print(f"Already exists locally: {local_path}")
+            print(f"✅ Already exists: {local_path}")
