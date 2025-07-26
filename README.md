@@ -60,8 +60,8 @@
 
 ### 🔗 Quick Links
 [🔥 Live App](https://fire-risk-prediction-in-montreal.onrender.com) |
-[📖 Project Details](fire-risk-app/README-detailed.md) |
-[⚙️ Deployment Guide](fire-risk-app/README-deployment.md) |
+[📖 Project Details](README-detailed.md) |
+[⚙️ Deployment Guide](README-deployment.md) |
 [🎞️ Presentation Slides](https://drive.google.com/file/d/1lRE_yKjAF7jHVoCD7S1-z5ezxtrtlUYC/view?usp=sharing)
 
 ## 🔧 Modeling Summary
