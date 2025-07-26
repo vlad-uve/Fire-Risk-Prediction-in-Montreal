@@ -16,25 +16,32 @@ app = Flask(__name__, static_folder="static", template_folder="templates")
 
 BUCKET_NAME       = "fire-risk-gcs-bucket"
 LOCAL_DATA_DIR    = os.path.join(app.root_path, "data")
+LOCAL_MODEL_DIR = os.path.join(app.root_path, "model")
 DEFAULT_MONTH     = "2025-05"
 TMP_MAP_DIR       = "/tmp/maps"  # Render allows writing only here
 DEFAULT_TRUE_HTML = "maps/default_true_map.html"
 DEFAULT_PRED_HTML = "maps/default_pred_map.html"
 
-GCS_FILES = {
+GCS_DATA_FILES = {
     "df_fires_history_risk.csv": "data/df_fires_history_risk.csv",
     "montreal_grid_v1.geojson":  "data/montreal_grid_v1.geojson",
+}
+
+GCS_MODEL_FILES = {
     "xgb_model_v1.pkl":          "model/xgb_model_v1.pkl",
 }
 
 # ------------------------------------------------------------------------------
 # 2) One-time GCS download if needed
 # ------------------------------------------------------------------------------
-print("Checking for required data/model files…")
-download_data_from_gcs(BUCKET_NAME, GCS_FILES, LOCAL_DATA_DIR)
+print("Checking for required data files…")
+download_data_from_gcs(BUCKET_NAME, GCS_DATA_FILES, LOCAL_DATA_DIR)
+
+print("Checking for required model files…")
+download_data_from_gcs(BUCKET_NAME, GCS_MODEL_FILES, LOCAL_MODEL_DIR)
 
 # ------------------------------------------------------------------------------
-# 3) Lazy loading on first request
+    # 3) Lazy loading on first request
 # ------------------------------------------------------------------------------
 df_fires_history_risk = None
 gpd_grid              = None
@@ -61,7 +68,7 @@ def ensure_model_loaded():
     if model_loaded:
         return
     print("🔹 Loading model…")
-    with open(os.path.join(LOCAL_DATA_DIR, "xgb_model_v1.pkl"), "rb") as f:
+    with open(os.path.join(LOCAL_MODEL_DIR, "xgb_model_v1.pkl"), "rb") as f:
         xgb_model = pickle.load(f)
     model_loaded = True
     print("✅ Model loaded.")
