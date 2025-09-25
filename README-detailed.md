@@ -225,7 +225,7 @@ The maps below show the distribution of actual fire risk (left) and predicted fi
 
 <p align="center">
   <img src="files/images/distribution_true_2024_01.png" width="400"/>
-  <img src="files/images/distribution_predict_2024_01.png" width="400"/>
+  <img src="files/images/distribution_predicted_2024_01.png" width="400"/>
 </p>
 
 <p align="center">
