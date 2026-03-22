@@ -12,7 +12,7 @@
 
 ### 🔗 Quick Links:
 [🚀 Live App](https://fire-risk-prediction-in-montreal.onrender.com) |
-[📖 README](fire-risk-app/README.md) |
+[📖 README](README.md) |
 [⚙️ Project Details](README-detailed.md) |
 [🎞️ Presentation Slides](https://drive.google.com/file/d/1lRE_yKjAF7jHVoCD7S1-z5ezxtrtlUYC/view?usp=sharing)
 
